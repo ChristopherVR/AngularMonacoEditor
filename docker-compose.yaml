@@ -1,0 +1,14 @@
+name: monaco-editor
+
+services:
+  intellisenseServer:
+    image: ${DOCKER_REGISTRY}intellisense:${TAG}
+    build:
+      context: .
+      dockerfile: IntellisenseServer/Dockerfile
+
+  monacoEditor:
+    image: ${DOCKER_REGISTRY}monaco:${TAG}
+    build:
+      context: .
+      dockerfile: MonacoEditor/Dockerfile
