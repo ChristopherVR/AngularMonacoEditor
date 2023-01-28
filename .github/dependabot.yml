@@ -1,0 +1,33 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 3
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+
+  - package-ecosystem: 'nuget'
+    directory: '/IntellisenseServer/IntellisenseServer/'
+    schedule:
+      interval: 'weekly'
+    reviewers:
+      - 'ChristopherVR'
+
+  - package-ecosystem: 'nuget'
+    directory: '/IntellisenseServer/IntellisenseServer.API/'
+    schedule:
+      interval: 'weekly'
+    reviewers:
+      - 'ChristopherVR'
+
+  - package-ecosystem: 'npm'
+    directory: '/MonacoEditor'
+    schedule:
+      interval: 'weekly'
+    reviewers:
+      - 'ChristopherVR'

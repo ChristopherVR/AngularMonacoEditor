@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "DynamicSystem.V1";
+
+package dynamicsystem.v1;
+
+service Dynamic {
+  // List
+  rpc ListTabCompletions(ListTabCompletionsRequest) returns (ListTabCompletionsResponse);
+  rpc ListCodeCompletions(ListCodeCompletionsRequest) returns (ListCodeCompletionsResponse);
+
+  // Validate
+  rpc ValidateSignature(ValidateSignatureRequest) returns (SignatureResponse);
+  rpc ValidateHoverInformation(ValidateHoverInformationRequest) returns (HoverInformation);
+}
+
+message ListTabCompletionsRequest {
+  string code = 1;
+  int32 position = 2;
+  repeated string assemblies = 3;
+}
+
+message ListTabCompletionsResponse {
+  message TabCompletion {
+	 string suggestion = 1;
+	 google.protobuf.StringValue description = 2;
+  }
+  repeated TabCompletion tabs = 1;
+}
+
+
+message ListCodeCompletionsRequest {
+  string code = 1;
+  repeated string assemblies = 2;
+}
+
+message ListCodeCompletionsResponse {
+  message CodeCheckCompletion {
+	string id = 1;
+	string keyword = 2;
+	string message = 3;
+	int32 offset_from = 4;
+	int32 offset_to = 5;
+	DiagnosticSeverity severity = 6;
+  }
+  repeated CodeCheckCompletion checks = 1;
+}
+
+
+message ValidateSignatureRequest {
+  string code = 1;
+  int32 position = 2;
+  repeated string assemblies = 3;
+}
+
+message Signature {
+  message Parameter {
+	string label = 1;
+	google.protobuf.StringValue documentation = 2;
+  }
+  string label = 1;
+  string documentation = 2;
+  repeated Parameter parameters = 3;
+}
+
+
+
+message SignatureResponse {
+  int32 active_parameter = 1;
+  int32 active_signature = 2;
+  repeated Signature signatures = 3;
+}
+
+
+message ValidateHoverInformationRequest {
+  string code = 1;
+  int32 position = 2;
+  repeated string assemblies = 3;
+}
+
+message HoverInformation {
+  string information = 1;
+  int32 offset_from = 2;
+  int32 offset_to = 3;
+}
+
+enum DiagnosticSeverity {
+  Hidden = 0;
+  Info = 1;
+  Warning = 2;
+  Error = 3;
+}

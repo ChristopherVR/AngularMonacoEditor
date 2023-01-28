@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5ae88690-1c29-4f6c-bcc2-88177fafa84a</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.26.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+	  <PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
+	  <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.51.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Protos\" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\dynamic_system.v1.proto" GrpcServices="Server" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\IntellisenseServer\IntellisenseServer.csproj" />
+  </ItemGroup>
+
+</Project>
