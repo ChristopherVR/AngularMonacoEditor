@@ -14,6 +14,7 @@
   <ol>
     <li><a href="#about-the-project"> ➤ About The Project</a></li>
     <li><a href="#prerequisites"> ➤ Prerequisites</a></li>
+    <li><a href="#setup"> ➤ Setup</a></li>
   </ol>
 </details>
 
@@ -50,21 +51,55 @@ The following open source packages are used in this project:
 
 <!-- SETUP -->
 <h2 id="setup"> :floppy_disk: Setup</h2>
+
+<h3>1. Setup the monaco editor</h3>
+Setup the AppModule to include the BaseEditorComponent & your custom editor component (*MonacoEditorComponent* in this case as a demo)
+
 ```
-// TODO: Provide setup
+@NgModule({
+  declarations: [AppComponent, BaseEditorComponent, MonacoEditorComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
 ```
 
-</p>
+Render the base editor onto your custom component' HTML template
 
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-<!-- Examples -->
-<h2 id="config"> :dart: Example page using this monaco editor logic</h2>
-
-<p align="justify"> 
 ```
-// TODO: Provide example
+<div>
+  <app-base-editor class="w-100 h-100 monaco-editor position-relative" [options]="editorOptions"></app-base-editor>
+</div>
 ```
+
+Pass the editor options object to indicate what language and settings should be enabled for the monaco editor
+
+```
+  editorOptions: MonacoEditorOptions = {
+    theme: 'vs',
+    language: 'csharp',
+    // disables the dropdown menu when right-clicking
+    contextmenu: false,
+    model: {
+      language: 'csharp',
+    },
+  };
+```
+<h3>2. Configure the API URL</h3>
+
+Create an `environment.ts` file in the `environment` folder. Include the apiEndpoint property
+
+```
+export const environment = {
+  production: false,
+  apiEndpoint: 'https://localhost:5023/',
+};
+```
+
+<h3>3. Configure the .NET Backend</h3>
+See the `DynamicModuleController.cs` or the gRPC service `DynamicServiceV1.cs` as examples on how to use the IntellisenseServer project.
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
